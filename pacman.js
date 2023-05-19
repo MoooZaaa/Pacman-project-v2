@@ -58,7 +58,19 @@ class Pacman {
         }
     }
 
-    checkCollision() {}
+    checkCollision() {
+        let isCollided = false
+        if(map[this.getMapY()][this.getMapX()] == 1 ||
+            map[this.getMapYRightSide()][this.getMapX()] == 1 ||
+            map[this.getMapY()][this.getMapXRightSide()] == 1 ||
+            map[this.getMapYRightSide()][this.getMapXRightSide()] == 1
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+
 
     checkGhostCollision() {}
 
@@ -68,7 +80,20 @@ class Pacman {
 
     draw() {}
 
-    // Timecode de la vidéo : 23:55
-    // Lien : https://www.youtube.com/watch?v=GXlckaGr0Eo&ab_channel=ServetGulnaroglu
+    getMapX() {
+        return parseint(this.x / oneBlockSize)
+    }
+
+    getMapY() {
+        return parseint(this.y / oneBlockSize)
+    }
+
+    getMapXRightSide() {
+        return parseint((this.x + 0.9999 * oneBlockSize  )/ oneBlockSize)
+    }
+
+    getMapYRightSide() {
+        return parseint((this.y + 0.9999 * oneBlockSize  )/ oneBlockSize)
+    }
 
 }
