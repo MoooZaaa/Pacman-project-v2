@@ -6,6 +6,12 @@ class Pacman {
         this.height = height
         this.speed = speed
         this.direction = DIRECTION_RIGHT
+        this.currentFrame = 1;
+        this.frameCount = 7;
+
+        setInterval(() => {
+            this.changeAnimation()
+        }, 100);
     }
 
     // [ DEPLACEMENTS ]
@@ -70,15 +76,43 @@ class Pacman {
         return false;
     }
 
-
-
     checkGhostCollision() {}
 
     changeDirectionIfPossible() {}
 
-    changeAnimation() {}
+    changeAnimation() {
+        this.currentFrame =
+         this.currentFrame == this.frameCount ? 1: this.currentFrame + 1;
+    }
 
-    draw() {}
+    draw() {
+        canvasContext.save()
+        canvasContext.translate(
+            this.x + oneBlockSize/ 2,
+            this.y + oneBlockSize/ 2
+        );
+
+        canvasContext.rotate((this.direction * 90 * Math.PI) / 180);
+
+        canvasContext.translate(
+            -this.x - oneBlockSize/ 2,
+            -this.y - oneBlockSize/ 2
+        );
+
+        canvasContext.drawImage(
+            pacmanFrames,
+            (this.currentFrame - 1) / oneBlockSize,
+            0,
+            oneBlockSize,
+            oneBlockSize,
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        )                                   // <== [ Dernière modif de la vidéo ]
+
+        canvasContext.restore();
+    }
 
     getMapX() {
         return parseint(this.x / oneBlockSize)
